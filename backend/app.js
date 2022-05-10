@@ -20,17 +20,8 @@ const rateLimit = require('express-rate-limit');
 
 const { PORT = 3000 } = process.env;
 
-const limiter = rateLimit({
-  windowMs: 10 * 60 * 1000, // промежуток времени на запросы
-  max: 1000, // максимум 1000 запросов с одного ip
-});
-
 const app = express();
 
-// настраиваем заголовки
-app.use(helmet());
-// подключаем rate-limiter
-app.use(limiter);
 // подключение к бд
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
