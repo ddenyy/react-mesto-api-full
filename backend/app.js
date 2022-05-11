@@ -1,4 +1,6 @@
 require('dotenv').config();
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
@@ -15,24 +17,19 @@ const {
 } = require('./middlewares/validations');
 const cors = require('./middlewares/corsHeaders');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
-
 const { PORT = 3000 } = process.env;
-
-const limiter = rateLimit({
-  windowMs: 10 * 60 * 1000, // промежуток времени на запросы
-  max: 1000, // максимум 1000 запросов с одного ip
-});
-
 const app = express();
-
-// настраиваем заголовки
-app.use(helmet());
-// подключаем rate-limiter
-app.use(limiter);
 // подключение к бд
 mongoose.connect('mongodb://localhost:27017/mestodb');
+
+app.listen(PORT);
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // за 15 минут
+  max: 1000, // можно совершить максимум 1000 запросов с одного IP
+});
+
+app.use(limiter);
 
 // подключаем обработку приходящих данных
 app.use(express.json());
@@ -40,15 +37,10 @@ app.use(express.json());
 app.use(cookieParser());
 // подключаем валидацию запросов чтоб проходил проверку CORS
 app.use(cors);
-
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
-// логирование запросов
+// настраиваем заголовки
+app.use(helmet());
+// подключаем логгер запросов
 app.use(requestLogger);
-
 app.post('/signin', signInValidation, login);
 app.post('/signup', signUpValidation, createUser);
 
@@ -57,15 +49,12 @@ app.use(auth);
 // роуты которым нужна авторизация
 app.use(routersUser);
 app.use(routersCard);
+// подключаем логгер ошибок
+app.use(errorLogger);
 
 app.use('*', (req, res, next) => {
   next(new NotFoundError('Страница не найдена'));
 });
 
-// логирование ошибок
-app.use(errorLogger);
-
 app.use(errors());
 app.use(errorHandler);
-
-app.listen(PORT);
