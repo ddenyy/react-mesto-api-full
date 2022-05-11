@@ -24,12 +24,19 @@ mongoose.connect('mongodb://localhost:27017/mestodb');
 
 app.listen(PORT);
 
+<<<<<<< HEAD
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // за 15 минут
   max: 1000, // можно совершить максимум 1000 запросов с одного IP
 });
 
 app.use(limiter);
+=======
+const app = express();
+
+// подключение к бд
+mongoose.connect('mongodb://localhost:27017/mestodb');
+>>>>>>> 5134c03ef86c14e948d2960f67b58c4dbc480963
 
 // подключаем обработку приходящих данных
 app.use(express.json());
