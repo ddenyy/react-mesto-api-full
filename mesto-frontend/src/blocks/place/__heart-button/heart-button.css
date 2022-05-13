@@ -1,0 +1,19 @@
+.place__heart-button {
+  outline: none;
+  background: transparent;
+  display: block;
+  width: 22px;
+  height: 19px;
+  box-sizing: border-box;
+  background-image: url(../../../images/heart_disabled.svg);
+  background-size: cover;
+  border: 0;
+  background-position: center;
+}
+
+.place__heart-button:hover {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.3s linear;
+}
+

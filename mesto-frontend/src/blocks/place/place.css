@@ -1,0 +1,13 @@
+.place {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-style: normal;
+  color: #000;
+  background-color: white;
+  border-radius: 10px;
+  max-width: 282px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  position: relative;
+}

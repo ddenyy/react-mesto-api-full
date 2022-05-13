@@ -1,0 +1,7 @@
+.input-container{
+  position: relative;
+}
+
+.input-container:first-of-type{
+  margin-bottom: 30px;
+}

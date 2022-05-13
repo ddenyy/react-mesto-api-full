@@ -1,0 +1,6 @@
+.header__info{
+    display: flex;
+    flex-direction: row;
+    max-width: 221px;
+    align-items: center;
+}

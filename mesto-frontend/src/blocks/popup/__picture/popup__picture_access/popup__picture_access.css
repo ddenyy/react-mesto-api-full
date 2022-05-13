@@ -1,0 +1,14 @@
+.popup__picture_access {
+    margin: auto;
+    margin-top: 60px;
+    margin-bottom: 32px;
+    width: 120px;
+    height: 120px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../../../../images/Union.svg);
+}
+
+.popup__picture_access_error {
+    background-image: url(../../../../images/Union\(error\).svg);
+}

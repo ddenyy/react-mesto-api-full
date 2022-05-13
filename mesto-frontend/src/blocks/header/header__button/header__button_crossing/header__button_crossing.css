@@ -1,0 +1,15 @@
+.header__button_crossing {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 1px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.header__button_crossing:hover {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.3s linear;
+}

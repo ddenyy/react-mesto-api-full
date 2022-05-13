@@ -1,0 +1,27 @@
+.profile__username {
+  color: #fff;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  width: fit-content;
+  max-width: 294px;
+  margin: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-right: 0;
+  font-size: 42px;
+  line-height: 48px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  grid-area: username;
+}
+
+@media screen and (max-width: 372px) {
+  .profile__username {
+    font-size: 27px;
+    line-height: 33px;
+    max-width: 189px;
+    margin-left: 26px;
+  }
+}

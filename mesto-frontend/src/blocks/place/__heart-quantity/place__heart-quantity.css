@@ -1,0 +1,10 @@
+.place__heart-quantity{
+  margin: 3px auto 0 auto;
+  width: 10px;
+  height: 13px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #000000;
+  text-align: center;
+}

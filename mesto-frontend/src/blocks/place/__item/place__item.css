@@ -1,0 +1,8 @@
+.place__item {
+  max-width: 246px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 21px 20px 26px 21px;
+  align-items: center;
+}
