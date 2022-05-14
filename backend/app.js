@@ -19,7 +19,7 @@ const cors = require('./middlewares/corsHeaders');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
-
+console.log(process.env.NODE_ENV);
 const app = express();
 // подключение к бд
 mongoose.connect('mongodb://localhost:27017/mestodb');
