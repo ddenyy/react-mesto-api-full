@@ -5,19 +5,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
-const routersUser = require('./routes/userRoute');
-const routersCard = require('./routes/cardRoute');
-const { login, createUser } = require('./controllers/userController');
-const auth = require('./middlewares/auth');
-const NotFoundError = require('./errors/NotFoundError');
 const errorHandler = require('./middlewares/errorHandler');
-const {
-  signUpValidation,
-  signInValidation,
-} = require('./middlewares/validations');
 const cors = require('./middlewares/corsHeaders');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const router = require('./routes/routes');
 
+// слушаем порт 3000
 const { PORT = 3000 } = process.env;
 
 const app = express();
@@ -31,8 +24,6 @@ const limiter = rateLimit({
   max: 1000, // можно совершить максимум 1000 запросов с одного IP
 });
 
-app.use(limiter);
-
 // подключаем обработку приходящих данных
 app.use(express.json());
 // подключаем обработку куки, все куки лежат в req.cookie
@@ -41,29 +32,14 @@ app.use(cookieParser());
 app.use(cors);
 // настраиваем заголовки
 app.use(helmet());
+app.use(limiter);
 // подключаем логгер запросов
 app.use(requestLogger);
-
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
-
-app.post('/signin', signInValidation, login);
-app.post('/signup', signUpValidation, createUser);
-
-// middleware для проверки авторизаци пользователя
-app.use(auth);
-// роуты которым нужна авторизация
-app.use(routersUser);
-app.use(routersCard);
+// подключаем все роуты
+app.use(router);
 // подключаем логгер ошибок
 app.use(errorLogger);
 
-app.use('*', (req, res, next) => {
-  next(new NotFoundError('Страница не найдена'));
-});
 
 app.use(errors());
 app.use(errorHandler);
